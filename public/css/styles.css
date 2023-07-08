@@ -71,34 +71,20 @@ section h2 {
   font-size: 1em; 
 }
 
-#skills ul {
+ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-#skills li {
-  display: inline-block;
-  margin-right: 1em;
+ul li {
+  font-size: 1.1em;
   margin-bottom: 1em;
 }
 
-/* Additional Styles for Contact Page */
-
-main.center-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 30vh;
-}
-
-p {
-  font-size: 1.2em;
-  margin-bottom: 2em;
-}
-
-ul li {
-  font-size: 1.1em;
+.contact-method {
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 1em;
   margin-bottom: 1em;
 }
 
@@ -110,6 +96,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 .github-logo {
   width: 25px;
   height: 25px;
