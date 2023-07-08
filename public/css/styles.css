@@ -71,6 +71,26 @@ section h2 {
   font-size: 1em; 
 }
 
+#skills ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#skills li {
+  display: inline-block;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+/* Additional Styles for Contact Page */
+
+.project h3,
+.project p {
+  margin: 0;
+  padding: 0;
+  font-size: 1em; 
+}
+
 ul {
   list-style-type: none;
   padding-left: 0;
