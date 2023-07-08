@@ -13,7 +13,7 @@ The live version of this website is hosted on AWS Lightsail and can be accessed 
   
 - Showcase my resume and provide a downloadable link.
   
-- Highlight my projects and provide links to their repositories or live demos.
+- Highlight my projects and provide links to their repositories.
   
 - Provide a way for visitors to contact me through a contact form or my social media channels.
 
