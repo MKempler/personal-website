@@ -125,11 +125,20 @@ a:hover {
   height: 100vh;
 }
 
-/* Styles specific to Resume Page */
-
-.embed-container {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* CSS for larger screens */
+embed {
+  width: 100%;
+  height: 100%;
 }
 
+/* CSS for screens smaller than 800px wide */
+@media only screen and (max-width: 800px) {
+  .center {
+    height: auto;
+  }
+
+  embed {
+    width: 100%;
+    max-height: 600px;
+  }
+}
