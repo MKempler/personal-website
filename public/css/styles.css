@@ -124,3 +124,12 @@ a:hover {
   align-items: center;
   height: 100vh;
 }
+
+/* Styles specific to Resume Page */
+
+.embed-container {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
