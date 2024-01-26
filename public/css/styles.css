@@ -500,6 +500,13 @@ textarea {
     cursor: pointer;
     color: #333;
     transition: color .3s; }
+    .header__logo-link {
+      display: flex; /* This makes sure the logo and the text are in line */
+      align-items: center; /* This will vertically center align the image and text */
+      justify-content: center; /* This will horizontally center the content if needed */
+      text-decoration: none; /* Removes underline from the link */
+      color: inherit; /* The link will use the text color from the parent element */
+  }
     .header__logo-container:hover {
       color: #0062b9; }
   .header__logo-img-cont {
