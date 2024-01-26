@@ -20,15 +20,15 @@ app.post('/send', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'maxkempler@gmail.com',
-            pass: 'ilts ohkn txoc acqx'
+            user: 'maxkempler@gmail.com', // Consider using environment variables
+            pass: 'ilts ohkn txoc acqx' // Consider using environment variables
         }
     });
 
     // Mail options
     const mailOptions = {
         from: req.body.email,
-        to: 'maxkempler@gmail.com',
+        to: 'maxkempler@gmail.com', 
         subject: 'New Contact Form Submission',
         text: `Name: ${req.body.name}\nEmail: ${req.body.email}\nMessage: ${req.body.message}`
     };
@@ -36,9 +36,10 @@ app.post('/send', (req, res) => {
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.error(error);
+            console.error('Error details:', error);
             res.status(500).send('Error sending message.');
         } else {
+            console.log('Message sent:', info);
             res.status(200).send('Message sent successfully!');
         }
     });
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Error stack:', err.stack);
   res.status(500).send('Something broke!');
 });
 
