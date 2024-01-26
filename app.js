@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer'); // Include Nodemailer
 const app = express();
 const indexRouter = require('./routes/index');
 
@@ -12,6 +13,36 @@ app.use(express.static('public'));
 
 // Set up routes
 app.use('/', indexRouter);
+
+// Add route for handling form submission
+app.post('/send', (req, res) => {
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'maxkempler@gmail.com',
+            pass: 'ilts ohkn txoc acqx'
+        }
+    });
+
+    // Mail options
+    const mailOptions = {
+        from: req.body.email,
+        to: 'your-receiving-email@gmail.com',
+        subject: 'New Contact Form Submission',
+        text: `Name: ${req.body.name}\nEmail: ${req.body.email}\nMessage: ${req.body.message}`
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Error sending message.');
+        } else {
+            res.status(200).send('Message sent successfully!');
+        }
+    });
+});
 
 // Error handling
 app.use((req, res, next) => {
