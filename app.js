@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer'); // Include Nodemailer
+const nodemailer = require('nodemailer');
 const app = express();
 const indexRouter = require('./routes/index');
+app.use(express.json()); // This is needed to parse JSON bodies
 
 // Set up EJS
 app.set('view engine', 'ejs');
@@ -16,45 +17,45 @@ app.use('/', indexRouter);
 
 // Add route for handling form submission
 app.post('/send', (req, res) => {
-    // Configure Nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'maxkempler@gmail.com', // Consider using environment variables
-            pass: 'ilts ohkn txoc acqx' // Consider using environment variables
+            user: 'maxkempler@gmail.com', // Use environment variables for security
+            pass: 'ilts ohkn txoc acqx' // Use environment variables for security
         }
     });
 
-    // Mail options
     const mailOptions = {
         from: req.body.email,
-        to: 'maxkempler@gmail.com', 
+        to: 'maxkempler@gmail.com',
         subject: 'New Contact Form Submission',
         text: `Name: ${req.body.name}\nEmail: ${req.body.email}\nMessage: ${req.body.message}`
     };
 
-    // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error details:', error);
-            res.status(500).send('Error sending message.');
+            res.status(500).json({ message: 'Error sending message.' });
         } else {
             console.log('Message sent:', info);
-            res.status(200).send('Message sent successfully!');
+            res.status(200).json({ message: 'Message sent successfully!' });
         }
     });
 });
 
-// Error handling
+// Error handling for not found
 app.use((req, res, next) => {
-  res.status(404).send("Sorry can't find that!");
+    res.status(404).send("Sorry, can't find that!");
 });
 
+// Error handling for server errors
 app.use((err, req, res, next) => {
-  console.error('Error stack:', err.stack);
-  res.status(500).send('Something broke!');
+    console.error('Error stack:', err.stack);
+    res.status(500).send('Something broke!');
 });
 
 // Start the server
 const PORT = process.env.PORT || 1337;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+
