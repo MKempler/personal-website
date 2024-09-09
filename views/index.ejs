@@ -179,7 +179,7 @@
                 href="https://github.com/MKempler/AIChatbot"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
-                >View Project!</a
+                >View Project</a
               >
             </div>
           </div>
@@ -201,7 +201,7 @@
                 href="https://github.com/MKempler/SocialMediaWebsite"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
-                >View Project!</a
+                >View Project</a
               >
             </div>
           </div>
@@ -223,7 +223,7 @@
                 href="https://github.com/MKempler/Weather-Data-Fetcher"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
-                >View Project!</a
+                >View Project</a
               >
             </div>
           </div>
@@ -241,46 +241,56 @@
                   </span>
               </h2>
               <div class="contact__form-container">
-            
-                  <form action="/send" method="POST" class="contact__form"> 
-                      <div class="contact__form-field">
-                          <label class="contact__form-label" for="name">Name</label>
-                          <input
-                              required
-                              placeholder="Enter Your Name"
-                              type="text"
-                              class="contact__form-input"
-                              name="name"
-                              id="name"
-                          />
-                      </div>
-                      <div class="contact__form-field">
-                          <label class="contact__form-label" for="email">Email</label>
-                          <input
-                              required
-                              placeholder="Enter Your Email"
-                              type="email" 
-                              class="contact__form-input"
-                              name="email"
-                              id="email"
-                          />
-                      </div>
-                      <div class="contact__form-field">
-                          <label class="contact__form-label" for="message">Message</label>
-                          <textarea
-                              required
-                              cols="30"
-                              rows="10"
-                              class="contact__form-input"
-                              placeholder="Enter Your Message"
-                              name="message"
-                              id="message"
-                          ></textarea>
-                      </div>
-                      <button type="submit" class="btn btn--theme contact__btn">
-                          Submit
-                      </button>
-                  </form>
+                <form action="/send" method="POST" class="contact__form"> 
+                  <!-- Honeypot field -->
+                  <div class="contact__form-field">
+                      <label class="contact__form-label" for="honeypot" style="display:none;">Honeypot</label>
+                      <input
+                          type="text"
+                          class="contact__form-input"
+                          name="honeypot"
+                          id="honeypot"
+                          style="display:none;"
+                      />
+                  </div>
+                  <div class="contact__form-field">
+                      <label class="contact__form-label" for="name">Name</label>
+                      <input
+                          required
+                          placeholder="Enter Your Name"
+                          type="text"
+                          class="contact__form-input"
+                          name="name"
+                          id="name"
+                      />
+                  </div>
+                  <div class="contact__form-field">
+                      <label class="contact__form-label" for="email">Email</label>
+                      <input
+                          required
+                          placeholder="Enter Your Email"
+                          type="email" 
+                          class="contact__form-input"
+                          name="email"
+                          id="email"
+                      />
+                  </div>
+                  <div class="contact__form-field">
+                      <label class="contact__form-label" for="message">Message</label>
+                      <textarea
+                          required
+                          cols="30"
+                          rows="10"
+                          class="contact__form-input"
+                          placeholder="Enter Your Message"
+                          name="message"
+                          id="message"
+                      ></textarea>
+                  </div>
+                  <button type="submit" class="btn btn--theme contact__btn">
+                      Submit
+                  </button>
+              </form>
               </div>
           </div>
       </section>
@@ -307,5 +317,8 @@
     </footer>
 
     <script src="js/main.js"></script>
+
+
   </body>
+
 </html>
