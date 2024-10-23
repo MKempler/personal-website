@@ -18,52 +18,79 @@
   <body>
     <header class="header">
       <div class="header__content">
-          <div class="header__logo-container">
-              <!-- Anchor tag wrapping the logo image and name -->
-              <a href="/" class="header__logo-link">
-                  <div class="header__logo-img-cont">
-                      <img src="./assets/max-kempler.png" class="header__logo-img"/>
-                  </div>
-                  <span class="header__logo-sub">Max Kempler</span>
-              </a>
+        <div class="header__logo-container">
+          <!-- Anchor tag wrapping the logo image and name -->
+          <a href="/" class="header__logo-link">
+            <div class="header__logo-img-cont">
+              <img
+                src="./assets/max-kempler.png"
+                class="header__logo-img"
+                alt="Max Kempler Logo"
+              />
+            </div>
+            <span class="header__logo-sub">Max Kempler</span>
+          </a>
+        </div>
+        <div class="header__main">
+          <ul class="header__links">
+            <li class="header__link-wrapper">
+              <a href="/" class="header__link">Home</a>
+            </li>
+            <li class="header__link-wrapper">
+              <a href="./#about" class="header__link">About</a>
+            </li>
+            <li class="header__link-wrapper">
+              <a href="./#projects" class="header__link">Projects</a>
+            </li>
+            <li class="header__link-wrapper">
+              <a href="./#contact" class="header__link">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <div
+          class="header__main-ham-menu-cont"
+          id="hamburger-menu"
+          aria-label="Toggle navigation menu"
+          role="button"
+          tabindex="0"
+          aria-expanded="false"
+          aria-controls="header-sm-menu"
+        >
+          <div class="header__main-ham-menu">
+            <span></span>
           </div>
-          <div class="header__main">
-              <ul class="header__links">
-                  <li class="header__link-wrapper">
-                      <a href="/" class="header__link">Home</a>
-                  </li>
-                  <li class="header__link-wrapper">
-                      <a href="./#about" class="header__link">About</a>
-                  </li>
-                  <li class="header__link-wrapper">
-                      <a href="./#projects" class="header__link">Projects</a>
-                  </li>
-                  <li class="header__link-wrapper">
-                      <a href="./#contact" class="header__link">Contact</a>
-                  </li>
-              </ul>
+        </div>
+        <!-- End of Hamburger Menu -->
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          class="header__sm-menu"
+          id="header-sm-menu"
+          aria-hidden="true"
+        >
+          <div class="header__sm-menu-content">
+            <ul class="header__sm-menu-links">
+              <li class="header__sm-menu-link">
+                <a href="./index.html">Home</a>
+              </li>
+              <li class="header__sm-menu-link">
+                <a href="./index.html#about">About</a>
+              </li>
+              <li class="header__sm-menu-link">
+                <a href="./index.html#projects">Projects</a>
+              </li>
+              <li class="header__sm-menu-link header__sm-menu-link-last">
+                <a href="./index.html#contact">Contact</a>
+              </li>
+            </ul>
           </div>
-          <div class="header__sm-menu">
-              <div class="header__sm-menu-content">
-                  <ul class="header__sm-menu-links">
-                      <li class="header__sm-menu-link">
-                          <a href="./index.html">Home</a>
-                      </li>
-                      <li class="header__sm-menu-link">
-                          <a href="./index.html#about">About</a>
-                      </li>
-                      <li class="header__sm-menu-link">
-                          <a href="./index.html#projects">Projects</a>
-                      </li>
-                      <li class="header__sm-menu-link">
-                          <a href="./index.html#contact">Contact</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
+        </div>
+        <!-- End of Mobile Navigation Menu -->
       </div>
-  </header>
-  
+    </header>
+
     <section class="home-hero">
       <div class="home-hero__content">
         <h1 class="heading-primary">Hey, My name is Max Kempler</h1>
@@ -78,24 +105,29 @@
       </div>
       <div class="home-hero__socials">
         <div class="home-hero__social">
-          <a href="https://www.linkedin.com/in/max-kempler/" class="home-hero__social-icon-link">
+          <a
+            href="https://www.linkedin.com/in/max-kempler/"
+            class="home-hero__social-icon-link"
+            aria-label="LinkedIn"
+          >
             <img
               src="./assets/linkedin-ico.png"
-              alt="icon"
+              alt="LinkedIn Icon"
               class="home-hero__social-icon"
             />
           </a>
         </div>
         <div class="home-hero__social">
-          <a href="https://github.com/MKempler" class="home-hero__social-icon-link">
+          <a
+            href="https://github.com/MKempler"
+            class="home-hero__social-icon-link"
+            aria-label="GitHub"
+          >
             <img
               src="./assets/github-mark.png"
-              alt="icon"
+              alt="GitHub Icon"
               class="home-hero__social-icon"
             />
-          </a>
-        </div>
-      
           </a>
         </div>
       </div>
@@ -103,6 +135,7 @@
         <div class="mouse"></div>
       </div>
     </section>
+
     <section id="about" class="about sec-pad">
       <div class="main-container">
         <h2 class="heading heading-sec heading-sec__mb-med">
@@ -118,18 +151,16 @@
               <p class="about__content-details-para">
                 Hey! It's
                 <strong>Max Kempler</strong>
-                and I'm a <strong> Software Engineer Intern </strong> at CIS.  I am originally from Maine and currently 
+                and I'm a <strong> Software Engineer Intern </strong> at CIS. I am originally from Maine and currently
                 attend Marist College in Poughkeepsie, NY. In the past, I've worked as DevOps support in the Marist College IT department,
-                 where I managed servers in a Linux environment and created scripts to automate processes for operations. I have also worked as a Teaching Assistant for Software Development 2,
-                  which allowed me to become extremely proficient in JavaScript as I helped explain complex software development topics to advanced high school students.
-        
+                where I managed servers in a Linux environment and created scripts to automate processes for operations. I have also worked as a Teaching Assistant for Software Development 2,
+                which allowed me to become extremely proficient in JavaScript as I helped explain complex software development topics to advanced high school students.
               </p>
               <p class="about__content-details-para">
+                <!-- You can add additional content here if needed -->
               </p>
             </div>
-            <a href="./#contact" class="btn btn--med btn--theme dynamicBgClr"
-              >Contact</a
-            >
+            <a href="./#contact" class="btn btn--med btn--theme dynamicBgClr">Contact</a>
           </div>
           <div class="about__content-skills">
             <h3 class="about__content-title">My Skills</h3>
@@ -151,6 +182,7 @@
         </div>
       </div>
     </section>
+
     <section id="projects" class="projects sec-pad">
       <div class="main-container">
         <h2 class="heading heading-sec heading-sec__mb-bg">
@@ -165,7 +197,7 @@
             <div class="projects__row-img-cont">
               <img
                 src="./assets/chat.png"
-                alt="Software Screenshot"
+                alt="AI Chatbot Screenshot"
                 class="projects__row-img"
                 loading="lazy"
               />
@@ -179,6 +211,7 @@
                 href="https://github.com/MKempler/AIChatbot"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
+                rel="noopener noreferrer"
                 >View Project</a
               >
             </div>
@@ -187,7 +220,7 @@
             <div class="projects__row-img-cont">
               <img
                 src="./assets/social.png"
-                alt="Software Screenshot"
+                alt="Dynamic Social Media Website Screenshot"
                 class="projects__row-img"
                 loading="lazy"
               />
@@ -201,6 +234,7 @@
                 href="https://github.com/MKempler/SocialMediaWebsite"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
+                rel="noopener noreferrer"
                 >View Project</a
               >
             </div>
@@ -209,7 +243,7 @@
             <div class="projects__row-img-cont">
               <img
                 src="./assets/weather.png"
-                alt="Software Screenshot"
+                alt="Real-time Weather App Screenshot"
                 class="projects__row-img"
                 loading="lazy"
               />
@@ -217,47 +251,41 @@
             <div class="projects__row-content">
               <h3 class="projects__row-content-title">Real-time Weather App</h3>
               <p class="projects__row-content-desc">
-                Developed a weather data fetching program, utilizing API calls to fetch real-time weather data from OpenWeatherMap. Implemented location-based forecasts, an intuitive gui using Tkinter, and seamless data retrieval.
+                Developed a weather data fetching program, utilizing API calls to fetch real-time weather data from OpenWeatherMap. Implemented location-based forecasts, an intuitive GUI using Tkinter, and seamless data retrieval.
               </p>
               <a
                 href="https://github.com/MKempler/Weather-Data-Fetcher"
                 class="btn btn--med btn--theme dynamicBgClr"
                 target="_blank"
+                rel="noopener noreferrer"
                 >View Project</a
               >
             </div>
           </div>
         </div>
       </div>
- 
-  
+    </section>
+
+    <section id="contact" class="contact sec-pad dynamicBg">
+      <div class="main-container">
+        <h2 class="heading heading-sec heading-sec__mb-med">
+          <span class="heading-sec__main heading-sec__main--lt">Get in Touch</span>
+          <span class="heading-sec__sub heading-sec__sub--lt">
+            Reach me via email or phone.
+          </span>
         </h2>
-        <section id="contact" class="contact sec-pad dynamicBg">
-          <div class="main-container">
-            <h2 class="heading heading-sec heading-sec__mb-med">
-              <span class="heading-sec__main heading-sec__main--lt">Get in Touch</span>
-              <span class="heading-sec__sub heading-sec__sub--lt">
-                Reach me via email or phone.
-              </span>
-            </h2>
-            <div class="contact-info">
-              <div class="contact-item">Email: maxkempler@gmail.com</div>
-              <div class="contact-item">Phone: (207) 310-8330</div>
-            </div>
-          </div>
-        </section>
-        
-        
-        
-      
+        <div class="contact-info">
+          <div class="contact-item">Email: <a href="mailto:maxkempler@gmail.com">maxkempler@gmail.com</a></div>
+          <div class="contact-item">Phone: <a href="tel:+12073108330">(207) 310-8330</a></div>
+        </div>
       </div>
     </section>
+
     <footer class="main-footer">
       <div class="main-container">
         <div class="main-footer__upper">
           <div class="main-footer__row main-footer__row-1">
-            <h2 class="heading heading-sm main-footer__heading-sm">
-              
+            <!-- You can add additional footer content here if needed -->
           </div>
           <div class="main-footer__row main-footer__row-2">
             <h4 class="heading heading-sm text-lt">Max Kempler</h4>
@@ -267,13 +295,11 @@
           </div>
         </div>
 
-
+        <div class="main-footer__lower">
+        </div>
       </div>
     </footer>
 
     <script src="js/main.js"></script>
-
-
   </body>
-
 </html>

@@ -1,35 +1,87 @@
-window.onload = () => {
-  console.log("Welcome to Max Kempler's Personal Website!");
+// main.js
 
-  const form = document.querySelector('.contact__form');
-
-  if (form) {
-      form.addEventListener('submit', function(event) {
-          event.preventDefault(); // Prevent the default form submission
-
-          var formData = new URLSearchParams();
-          for (const pair of new FormData(this)) {
-              formData.append(pair[0], pair[1]);
-          }
-
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/send', true);
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Send as URL-encoded data
-
-          xhr.onload = function () {
-              if (xhr.status === 200) {
-                  console.log('Message sent successfully');
-                  alert('Message sent successfully!');
-              } else {
-                  console.log('Error sending message');
-                  alert('Error sending message.');
-              }
-          };
-
-          xhr.send(formData);
-          console.log('Form submission intercepted');
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Welcome to Max Kempler's Personal Website!");
+  
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const smMenu = document.querySelector('.header__sm-menu');
+    const body = document.body;
+  
+    if (hamburgerMenu && smMenu) {
+      // Initialize ARIA attributes
+      hamburgerMenu.setAttribute('aria-expanded', 'false');
+      smMenu.setAttribute('aria-hidden', 'true');
+  
+      // Function to toggle the menu
+      const toggleMenu = (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        hamburgerMenu.classList.toggle('active');
+        smMenu.classList.toggle('header__sm-menu--active');
+        body.classList.toggle('no-scroll');
+  
+        // Update ARIA attributes for accessibility
+        const isActive = hamburgerMenu.classList.contains('active');
+        hamburgerMenu.setAttribute('aria-expanded', isActive);
+        smMenu.setAttribute('aria-hidden', !isActive);
+      };
+  
+      // Toggle Hamburger Menu on Click
+      hamburgerMenu.addEventListener('click', toggleMenu);
+  
+      // Toggle Hamburger Menu on Enter or Space Key
+      hamburgerMenu.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleMenu(e);
+        }
       });
-  } else {
-      console.log('Form not found');
-  }
-};
+  
+      // Close the menu when clicking outside of it
+      document.addEventListener('click', (e) => {
+        if (!hamburgerMenu.contains(e.target) && !smMenu.contains(e.target)) {
+          if (hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.classList.remove('active');
+            smMenu.classList.remove('header__sm-menu--active');
+            body.classList.remove('no-scroll');
+  
+            // Update ARIA attributes
+            hamburgerMenu.setAttribute('aria-expanded', 'false');
+            smMenu.setAttribute('aria-hidden', 'true');
+          }
+        }
+      });
+  
+      // Close the menu when pressing the Esc key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.classList.remove('active');
+            smMenu.classList.remove('header__sm-menu--active');
+            body.classList.remove('no-scroll');
+  
+            // Update ARIA attributes
+            hamburgerMenu.setAttribute('aria-expanded', 'false');
+            smMenu.setAttribute('aria-hidden', 'true');
+          }
+        }
+      });
+  
+      // Close the menu when a mobile menu link is clicked
+      const mobileLinks = smMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (hamburgerMenu.classList.contains('active')) {
+            hamburgerMenu.classList.remove('active');
+            smMenu.classList.remove('header__sm-menu--active');
+            body.classList.remove('no-scroll');
+  
+            // Update ARIA attributes
+            hamburgerMenu.setAttribute('aria-expanded', 'false');
+            smMenu.setAttribute('aria-hidden', 'true');
+          }
+        });
+      });
+    } else {
+      console.warn("Hamburger menu elements not found in the DOM.");
+    }
+  });
