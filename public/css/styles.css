@@ -69,6 +69,8 @@ textarea {
     .heading-sec__mb-med {
       margin-bottom: 8rem; } }
 
+  
+
 .heading-sec__main {
   display: block;
   font-size: 4rem;
@@ -308,86 +310,7 @@ textarea {
         .projects__row-content-desc {
           font-size: 1.7rem; } }
 
-.contact {
-  background: linear-gradient(to right, rgba(0, 98, 185, 0.8), rgba(0, 98, 185, 0.8)), url(../../assets/svg/common-bg.svg);
-  background-size: cover;
-  background-position: center; }
-  .contact__form-container {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: white;
-    padding: 4rem;
-    margin-top: 6rem;
-    max-width: 80rem;
-    text-align: right;
-    width: 95%;
-    border-radius: 5px;
-    margin: 5rem auto 0 auto; }
-    @media only screen and (max-width: 37.5em) {
-      .contact__form-container {
-        padding: 3rem; } }
-  .contact__form-field {
-    margin-bottom: 4rem; }
-    @media only screen and (max-width: 37.5em) {
-      .contact__form-field {
-        margin-bottom: 3rem; } }
-  .contact__form-label {
-    color: #666;
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    display: block;
-    text-align: left; }
-  .contact__form-input {
-    color: #333;
-    padding: 2rem;
-    width: 100%;
-    border: 1px solid #ebebeb;
-    font-size: 1.6rem;
-    letter-spacing: 0px;
-    background: #f0f0f0;
-    border-radius: 5px;
-    font-weight: 600;
-    /* Code for Modern Browsers */
-    /* Code for WebKit, Blink, Edge */
-    /* Code for Internet Explorer 10-11 */
-    /* Code for Microsoft Edge */
-    /* Code for Mozilla Firefox 4 to 18 */
-    /* Code for Mozilla Firefox 19+ */ }
-    .contact__form-input::placeholder {
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-    .contact__form-input::-webkit-input-placeholder {
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-    .contact__form-input:-ms-input-placeholder {
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-    .contact__form-input::-ms-input-placeholder {
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-    .contact__form-input:-moz-placeholder {
-      opacity: 1;
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-    .contact__form-input::-moz-placeholder {
-      opacity: 1;
-      color: #999;
-      font-weight: 600;
-      font-size: 1.6rem; }
-  .contact__btn {
-    width: 30%;
-    padding: 2rem 4rem;
-    font-size: 1.6rem; }
-    @media only screen and (max-width: 37.5em) {
-      .contact__btn {
-        width: 100%; } }
-
+  
 .project-cs-hero {
   color: #fff;
   background: linear-gradient(to right, rgba(0, 98, 185, 0.8), rgba(0, 98, 185, 0.8)), url(../../assets/svg/common-bg.svg);
@@ -685,6 +608,43 @@ textarea {
     opacity: 1;
     animation: wheel 1.3s infinite;
     -webkit-animation: wheel 1.3s infinite; }
+
+    #contact {
+      background: linear-gradient(to right, #004a8f, #0062b9);
+      padding: 15rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+    }
+    
+    .contact-info {
+      display: flex;
+      gap: 3rem;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .contact-item {
+      background-color: white;
+      color: #333;
+      width: 50rem;
+      padding: 3rem;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 700;
+      border-radius: 10px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .contact-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+      background-color: #f0f0f0;
+    }
+    
 
 @keyframes wheel {
   to {
