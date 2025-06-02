@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* You can add base body styles here if needed, e.g., default font, background color */
+  /* For example, if you want a default dark theme background: */
+  /* background-color: #1a202c; */
+  /* color: #cbd5e0; */
+}
+
+/* Custom Animation Delays */
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+.animation-delay-600 { animation-delay: 0.6s; }
+.animation-delay-800 { animation-delay: 0.8s; }
+.animation-delay-1000 { animation-delay: 1s; }
+
+/* More specific pulse for the button if needed, or adjust keyframes */
+/* For example, to ensure the pulse doesn't override other shadows when not active */
+.button-pulse-idle {
+  animation: subtleButtonPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes subtleButtonPulse {
+  0%, 100% { box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.3); } /* cyber-primary glow */
+  50% { box-shadow: 0 0 25px 8px rgba(0, 255, 255, 0.5); }
+} 
