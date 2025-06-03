@@ -30,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/assets/favicon.ico" />
+      </head>
       <body 
         className={`${shareTechMono.variable} ${orbitron.variable} font-mono bg-cyber-bg text-cyber-text`}
       > {/* Applied dark theme base classes */}
