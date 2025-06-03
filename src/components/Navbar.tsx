@@ -12,7 +12,7 @@ const navItems = [
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const resumePath = "/assets/max-kempler-resume.pdf";
+  const resumePath = "/assets/Max-Kempler-Resume.pdf";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
