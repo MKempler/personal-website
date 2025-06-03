@@ -36,11 +36,18 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Add a handler to scroll to the top
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isMobileMenuOpen) handleMobileLinkClick();
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-cyber-bg/80 backdrop-blur-md shadow-lg shadow-cyber-primary/10 border-b border-cyber-surface/50">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo / Home Link */}
-        <a href="#hero" className="text-2xl md:text-3xl font-orbitron font-bold text-cyber-primary tracking-wider hover:opacity-80 transition-opacity duration-300 hover:animate-pulse" onClick={isMobileMenuOpen ? handleMobileLinkClick : undefined}>
+        <a href="#hero" className="text-2xl md:text-3xl font-orbitron font-bold text-cyber-primary tracking-wider hover:opacity-80 transition-opacity duration-300 hover:animate-pulse" onClick={handleLogoClick}>
           Max Kempler
         </a>
 
@@ -83,26 +90,28 @@ const Navbar = () => {
 
       {/* Mobile Menu Panel */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-20 bg-cyber-bg/95 backdrop-blur-lg p-6 space-y-6 flex flex-col items-center justify-center transition-opacity duration-300 ease-out opacity-100 z-40">
-          {navItems.map((item) => (
+        <div className="md:hidden fixed inset-0 top-20 flex items-start justify-center z-40">
+          <div className="bg-cyber-surface/95 border-2 border-cyber-primary shadow-neonGlow shadow-cyber-primary/60 backdrop-blur-lg p-8 pt-10 rounded-xl max-w-sm w-[90%] mx-auto mt-6 flex flex-col items-center space-y-6">
+            {navItems.map((item) => (
+              <a 
+                key={item.label}
+                href={item.href} 
+                onClick={handleMobileLinkClick}
+                className="font-orbitron text-2xl text-cyber-text hover:text-cyber-primary transition-colors duration-300 tracking-wide py-2 w-full text-center"
+              >
+                {item.label}
+              </a>
+            ))}
             <a 
-              key={item.label}
-              href={item.href} 
+              href={resumePath} 
+              target="_blank" 
+              rel="noopener noreferrer"
               onClick={handleMobileLinkClick}
-              className="font-orbitron text-2xl text-cyber-text-dim hover:text-cyber-primary transition-colors duration-300 tracking-wide py-2"
+              className="font-orbitron text-2xl bg-cyber-accent hover:bg-opacity-80 text-cyber-bg px-6 py-3 rounded-md shadow-md hover:shadow-lg hover:shadow-cyber-accent/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center mt-4 w-full justify-center"
             >
-              {item.label}
+               <span className="mr-2"><FiDownloadCloud /></span>Resume
             </a>
-          ))}
-          <a 
-            href={resumePath} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            onClick={handleMobileLinkClick}
-            className="font-orbitron text-2xl bg-cyber-accent hover:bg-opacity-80 text-cyber-bg px-6 py-3 rounded-md shadow-md hover:shadow-lg hover:shadow-cyber-accent/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center mt-4"
-          >
-             <span className="mr-2"><FiDownloadCloud /></span>Resume
-          </a>
+          </div>
         </div>
       )}
     </header>

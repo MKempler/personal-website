@@ -2,18 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base HTML and Body styles (if any specific ones beyond Tailwind's defaults) */
 html {
   scroll-behavior: smooth;
+  /* For Firefox scrollbar styling */
+  scrollbar-width: auto; /* Or 'thin' */
+  scrollbar-color: theme('colors.cyber-accent') theme('colors.cyber-surface / 50%'); /* thumb track */
 }
 
 body {
-  /* You can add base body styles here if needed, e.g., default font, background color */
-  /* For example, if you want a default dark theme background: */
-  /* background-color: #1a202c; */
-  /* color: #cbd5e0; */
+  /* Example: @apply bg-cyber-bg text-cyber-text; (This is usually handled in layout.tsx) */
+  /* Add any other global body styles here */
 }
 
-/* Custom Animation Delays */
+/* Custom animation delay classes */
 .animation-delay-200 { animation-delay: 0.2s; }
 .animation-delay-400 { animation-delay: 0.4s; }
 .animation-delay-600 { animation-delay: 0.6s; }
@@ -85,4 +87,40 @@ body {
 .border-glow-accent {
   border-color: #FFFF00;
   box-shadow: 0 0 3px #FFFF00, 0 0 5px #FFFF00 inset;
+}
+
+/* Cyberpunk Scrollbar Styles */
+/* For WebKit browsers (Chrome, Safari, newer Edge, Opera) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.cyber-surface / 50%');
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: theme('colors.cyber-accent'); 
+  border-radius: 10px;
+  border: 2px solid theme('colors.cyber-surface / 70%');
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: theme('colors.cyber-primary');
+}
+
+/* Title Text Shadow for a subtle depth */
+.title-text-shadow {
+  text-shadow:
+    0px 1px 1px rgba(0,0,0,0.3),
+    /* Glow effect for the title (can be combined with text-glow-X if needed, or be a base) */
+    0 0 8px theme('colors.cyber-primary / 50%'), 
+    0 0 12px theme('colors.cyber-primary / 30%');
+}
+
+/* Hide the Google reCAPTCHA badge */
+.grecaptcha-badge {
+  visibility: hidden !important;
 } 

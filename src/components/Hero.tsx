@@ -23,7 +23,7 @@ const Hero = () => {
         className="text-lg sm:text-xl md:text-2xl text-cyber-text-dim mb-10 opacity-0 animate-fade-in-up animation-delay-600"
         style={{ animationFillMode: 'forwards' }}
       >
-        Full-Stack Developer & Tech Enthusiast.
+        Full-Stack Developer
       </p>
       <a 
         href="#projects"
