@@ -30,21 +30,34 @@ const ProjectsSection = () => {
         </motion.h2>
         
         {projectsData.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-12">
-            {projectsData.map((project, index) => {
-              const currentCardDelay = cardAnimationDelay + index * 0.1;
-              const styleChoice = accentStyles[index % accentStyles.length];
-              return (
-                <ProjectCard 
-                  key={project.datastreamId}
-                  project={project} 
-                  animationDelay={currentCardDelay}
-                  borderColorClass={styleChoice.borderColor}
-                  titleGlowClass={styleChoice.titleGlow}
-                />
-              );
-            })}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-12">
+              {projectsData.map((project, index) => {
+                const currentCardDelay = cardAnimationDelay + index * 0.1;
+                const styleChoice = accentStyles[index % accentStyles.length];
+                return (
+                  <ProjectCard 
+                    key={project.datastreamId}
+                    project={project} 
+                    animationDelay={currentCardDelay}
+                    borderColorClass={styleChoice.borderColor}
+                    titleGlowClass={styleChoice.titleGlow}
+                  />
+                );
+              })}
+            </div>
+            {/* View More Projects Button */}
+            <div className="flex justify-center mt-12">
+              <a
+                href="https://github.com/MKempler"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-orbitron px-8 py-4 bg-cyber-accent text-cyber-bg font-bold rounded-md shadow-lg shadow-cyber-accent/40 transition-all duration-300 transform hover:scale-110 hover:shadow-cyber-accent/60 focus:outline-none focus:ring-4 focus:ring-cyber-accent focus:ring-opacity-75 text-xl md:text-2xl"
+              >
+                View more of my projects on GitHub
+              </a>
+            </div>
+          </>
         ) : (
           <div className="text-center text-cyber-text-dim py-10">
             <p className="font-orbitron text-xl">No projects to display at the moment.</p>

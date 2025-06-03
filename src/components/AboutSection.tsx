@@ -95,22 +95,28 @@ const AboutSection = () => {
         </motion.h2>
         
         {/* Grid Container: Added mt-16 for header-content gap, updated grid classes, added grid-auto-flow-dense */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 grid-auto-flow-dense mt-16">
+        <div className="flex flex-col items-center justify-center min-h-[40vh] mt-16">
           {/* Bio Card: Uses MotionCard, xl:col-span-full, p-6, max-w-[60ch] for text */}
           <MotionCard
-            className="bg-cyber-bg/70 backdrop-blur-[2px] p-6 rounded-lg border border-transparent shadow-neonGlow shadow-cyber-secondary/80 xl:col-span-full flex flex-col"
-            // No explicit delay here, or set to a base like 0.1 if preferred as first item
+            className="bg-cyber-bg/80 backdrop-blur-[3px] p-10 sm:p-12 rounded-2xl border border-cyber-secondary/60 shadow-neonGlow shadow-cyber-secondary/80 max-w-2xl w-full mx-auto flex flex-col items-center"
             transition={{duration: 0.4, delay: cardAnimationBaseDelay}}
           >
-            {/* Added max-w-[60ch] and mx-auto for readability */}
-            <div className="space-y-5 text-cyber-text leading-relaxed prose prose-invert prose-sm sm:prose-base max-w-[60ch] mx-auto font-mono flex-grow pt-6 sm:pt-0">
+            <h3 className="font-orbitron text-2xl md:text-3xl text-cyber-accent mb-6 tracking-wider text-center">Bio</h3>
+            <div className="space-y-7 text-cyber-text leading-relaxed text-lg md:text-xl font-mono prose prose-invert max-w-prose w-full text-center" style={{letterSpacing: '0.01em'}}>
               {bio.split('\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
           </MotionCard>
+        </div>
 
-          {/* Skill Cards */}
+        {/* My Skills Heading */}
+        <h3 className="font-orbitron text-xl md:text-2xl text-cyber-accent font-semibold text-center mb-2 mt-10 pb-2 border-b-2 border-cyber-accent/40 w-full max-w-3xl mx-auto" style={{letterSpacing: '0.04em'}}>
+          My Skills
+        </h3>
+
+         {/* Skill Cards */}
+         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 grid-auto-flow-dense mt-6">
           {skillCategoriesOrder.map((categoryName, index) => {
             const skills = categorizedSkills[categoryName] || [];
             if (skills.length === 0) return null;
