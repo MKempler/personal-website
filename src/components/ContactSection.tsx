@@ -175,11 +175,11 @@ const ContactSection = () => {
               <h3 className="font-orbitron text-2xl text-cyber-primary mb-6">Connect With Me</h3>
               <div className="space-y-4">
                 {socialLinks.map((link, index) => (
-                  <a 
-                    key={link.name} 
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                  <a
+                    key={link.name}
+                    href={link.name === 'Email' ? 'mailto:maxkempler@gmail.com' : link.url}
+                    target={link.name === 'Email' ? undefined : '_blank'}
+                    rel={link.name === 'Email' ? undefined : 'noopener noreferrer'}
                     className={`flex items-center p-3 bg-cyber-surface rounded-md border border-cyber-primary/30 hover:border-cyber-primary/70 hover:bg-cyber-primary/10 transition-all duration-300 group ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
                     style={{ animationDelay: isVisible ? `${index * 150 + 400}ms` : undefined, animationFillMode: 'forwards'}}
                   >
