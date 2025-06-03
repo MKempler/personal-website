@@ -1,17 +1,18 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link'; // Import Next.js Link for client-side navigation if needed, but for #hash links, <a> is fine.
 import { FiMenu, FiX, FiDownloadCloud } from 'react-icons/fi'; // Icons for menu, close, and resume
 
 // Define navigation items
 const navItems = [
-  { label: '// About_', href: '#about' },
-  { label: '// Projects_', href: '#projects' },
-  { label: '// Contact_', href: '#contact' },
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const resumeFileName = "MaxKempler_Resume.pdf"; // Update if your filename is different
+  const resumePath = "/assets/max-kempler-resume.pdf";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -40,7 +41,7 @@ const Navbar = () => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo / Home Link */}
         <a href="#hero" className="text-2xl md:text-3xl font-orbitron font-bold text-cyber-primary tracking-wider hover:opacity-80 transition-opacity duration-300 hover:animate-pulse" onClick={isMobileMenuOpen ? handleMobileLinkClick : undefined}>
-          MAX KEMPLER <span className="text-cyber-secondary">[MK_DEV]</span>
+          Max Kempler
         </a>
 
         {/* Desktop Navigation Links */}
@@ -56,14 +57,14 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href={`/${resumeFileName}`} 
+            href={resumePath} 
             target="_blank" 
             rel="noopener noreferrer"
             className="font-orbitron text-sm lg:text-base bg-cyber-accent hover:bg-yellow-300 text-cyber-bg px-4 py-2.5 rounded-md shadow-md hover:shadow-lg hover:shadow-cyber-accent/40 transition-all duration-300 transform hover:scale-105 inline-flex items-center group relative overflow-hidden"
           >
             <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>{/* Subtle sheen */}
-            <FiDownloadCloud className="mr-2 relative z-10" /> 
-            <span className="relative z-10">Dossier <span className="hidden lg:inline ml-1">[RESUME]</span></span>
+            <span className="mr-2 relative z-10"><FiDownloadCloud /></span> 
+            <span className="relative z-10">Resume <span className="hidden lg:inline ml-1"></span></span>
           </a>
         </div>
 
@@ -94,13 +95,13 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href={`/${resumeFileName}`} 
+            href={resumePath} 
             target="_blank" 
             rel="noopener noreferrer"
             onClick={handleMobileLinkClick}
             className="font-orbitron text-2xl bg-cyber-accent hover:bg-opacity-80 text-cyber-bg px-6 py-3 rounded-md shadow-md hover:shadow-lg hover:shadow-cyber-accent/30 transition-all duration-300 transform hover:scale-105 inline-flex items-center mt-4"
           >
-             <FiDownloadCloud className="mr-2" /> Dossier [RESUME]
+             <span className="mr-2"><FiDownloadCloud /></span>Resume
           </a>
         </div>
       )}

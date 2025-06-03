@@ -1,5 +1,9 @@
+"use client";
 import React, { useRef } from 'react';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+// import useIntersectionObserver from '@/hooks/useIntersectionObserver'; // No longer needed
+import { motion } from 'framer-motion'; // Keep for title animation if not using MotionCard for it
+import SkillCard from './cards/SkillCard';
+import MotionCard from './cards/MotionCard'; // Import MotionCard
 
 // placeholder icon imports - can be implemented later
 // import { FaReact, FaJsSquare, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaLinux, FaJava, FaPython } from 'react-icons/fa';
@@ -7,95 +11,128 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const skillsData = [
   // Programming Languages
-  { name: 'Java', category: 'Languages', level: 90 },
-  { name: 'Python', category: 'Languages', level: 88 },
-  { name: 'JavaScript (ES6+)', category: 'Languages', level: 85 },
-  { name: 'TypeScript', category: 'Languages', level: 80 },
-  { name: 'PHP', category: 'Languages', level: 70 },
+  { name: 'Java', category: 'Languages' },
+  { name: 'Python', category: 'Languages' },
+  { name: 'JavaScript (ES6+)', category: 'Languages' },
+  { name: 'TypeScript', category: 'Languages' },
+  { name: 'PHP', category: 'Languages' },
   // Frameworks & Libraries
-  { name: 'Spring Boot', category: 'Frameworks/Libraries', level: 85 },
-  { name: 'React / Next.js', category: 'Frameworks/Libraries', level: 80 },
-  { name: 'Node.js / Express.js', category: 'Frameworks/Libraries', level: 78 },
-  { name: 'Vue.js', category: 'Frameworks/Libraries', level: 70 },
-  { name: 'Keras', category: 'Frameworks/Libraries', level: 75 },
-  { name: 'NLTK', category: 'Frameworks/Libraries', level: 75 },
-  { name: 'Tailwind CSS', category: 'Frameworks/Libraries', level: 82 },
+  { name: 'Spring Boot', category: 'Frameworks & Libraries' },
+  { name: 'React / Next.js', category: 'Frameworks & Libraries' },
+  { name: 'Node.js / Express.js', category: 'Frameworks & Libraries' },
+  { name: 'Vue.js', category: 'Frameworks & Libraries' },
+  { name: 'Keras', category: 'Frameworks & Libraries' },
+  { name: 'NLTK', category: 'Frameworks & Libraries' },
+  { name: 'Tailwind CSS', category: 'Frameworks & Libraries' },
   // Databases
-  { name: 'PostgreSQL', category: 'Databases', level: 80 },
-  { name: 'MySQL', category: 'Databases', level: 75 },
-  { name: 'MariaDB', category: 'Databases', level: 70 },
-  { name: 'MongoDB', category: 'Databases', level: 65 },
+  { name: 'PostgreSQL', category: 'Databases' },
+  { name: 'MySQL', category: 'Databases' },
+  { name: 'MariaDB', category: 'Databases' },
+  { name: 'MongoDB', category: 'Databases' },
   // DevOps & Tools
-  { name: 'Docker', category: 'DevOps & Tools', level: 75 },
-  { name: 'AWS', category: 'DevOps & Tools', level: 70 },
-  { name: 'Linux', category: 'DevOps & Tools', level: 85 },
-  { name: 'Git & GitHub', category: 'DevOps & Tools', level: 92 },
-  { name: 'Jira', category: 'DevOps & Tools', level: 80 },
-  { name: 'Logback', category: 'DevOps & Tools', level: 70 },
-  { name: 'Spock Framework', category: 'DevOps & Tools', level: 70 },
-  // Web Technologies
-  { name: 'HTML5', category: 'Web Technologies', level: 90 },
-  { name: 'CSS3', category: 'Web Technologies', level: 85 },
-  // Methodologies
-  { name: 'Agile / Scrum', category: 'Methodologies', level: 88 }, 
-  // Concepts
-  { name: 'REST APIs', category: 'Concepts', level: 90 }, // Assuming from general knowledge
+  { name: 'Docker', category: 'DevOps & Tools' },
+  { name: 'AWS', category: 'DevOps & Tools' },
+  { name: 'Linux', category: 'DevOps & Tools' },
+  { name: 'Git & GitHub', category: 'DevOps & Tools' },
+  { name: 'Jira', category: 'DevOps & Tools' },
+  { name: 'Logback', category: 'DevOps & Tools' },
+  { name: 'Spock Framework', category: 'DevOps & Tools' },
+  // Web Technologies - New Category
+  { name: 'HTML5', category: 'Web Technologies' },
+  { name: 'CSS3', category: 'Web Technologies' },
+  // Methodologies & Concepts - Renamed & Focused Category
+  { name: 'Agile / Scrum', category: 'Methodologies & Concepts' }, 
+  { name: 'REST APIs', category: 'Methodologies & Concepts' },
 ];
 
 const AboutSection = () => {
-  const bio = "Hi! I am Max Kempler, a recent Compuer Science graduate from Marist University. I have strong Software Engineering experience working for The Center for Internet Security (CIS) As well as strong DevOps experience wokring as the sole student devops Engineer for Marist University. I am strongly passionate about Tech and in the advancment of Artificial inteligence and am actively seeking out roles to put my skills to the test!";
+  const bio = "Hi! I'm Max Kempler, a recent Computer Science graduate from Marist University, with minors in Information Technology and Information Systems.\nI have a strong background in Software Engineering from my time at the Center for Internet Security (CIS), along with hands-on DevOps experience as the sole student DevOps Engineer at Marist University.\nI'm deeply passionate about technology, especially in advancing artificial intelligence, and I'm actively seeking roles where I can apply and expand my skills.";
   
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.2, triggerOnce: true });
+  const sectionRef = useRef<HTMLDivElement>(null); 
+
+  const categorizedSkills: Record<string, Array<{name: string}>> = skillsData.reduce((acc, skill) => {
+    const { category, name } = skill;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push({ name });
+    return acc;
+  }, {} as Record<string, Array<{name: string}>>);
+
+  const skillCategoriesOrder = [
+    'Languages',
+    'Frameworks & Libraries',
+    'Databases',
+    'DevOps & Tools',
+    'Web Technologies', // New category added
+    'Methodologies & Concepts' // Renamed category
+  ];
+
+  let cardAnimationBaseDelay = 0.1;
+
+  // Define the cycle of colors and glows
+  const accentStyles = [
+    { glowColor: 'text-cyber-primary', titleGlow: 'text-glow-primary', neonBorderColor: 'shadow-cyber-primary' },
+    { glowColor: 'text-cyber-accent', titleGlow: 'text-glow-accent', neonBorderColor: 'shadow-cyber-accent' },
+    { glowColor: 'text-cyber-secondary', titleGlow: 'text-glow-secondary', neonBorderColor: 'shadow-cyber-secondary' },
+  ];
 
   return (
     <section 
       id="about" 
       ref={sectionRef} 
-      className={`w-full py-16 md:py-24 bg-cyber-surface rounded-lg shadow-xl shadow-cyber-primary/10 border border-cyber-primary/30 transition-all duration-1000 ease-out 
-                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      className="w-full py-20 md:py-28 bg-cyber-surface rounded-xl shadow-2xl shadow-cyber-primary/20 border border-cyber-primary/40"
     >
-      <div className="container mx-auto px-4 md:px-8">
-        <h2 className="font-orbitron text-4xl md:text-5xl text-center text-cyber-primary mb-12 md:mb-16 tracking-wider">
-          [ User Profile: MK_DEV ]
-        </h2>
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        <motion.h2 
+          className="font-orbitron text-4xl md:text-5xl lg:text-6xl text-center text-glow-secondary mb-12 md:mb-16 tracking-wider title-text-shadow"
+          initial={{ y: -30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          About Me
+        </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
-          {/* Left Column: Bio */}
-          <div className="md:col-span-3">
-            <h3 className="font-orbitron text-2xl text-cyber-secondary mb-6">// Log Entry: Status Report</h3>
-            <div className="space-y-4 text-cyber-text leading-relaxed prose prose-invert prose-sm md:prose-base max-w-none">
+        {/* Grid Container: Added mt-16 for header-content gap, updated grid classes, added grid-auto-flow-dense */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 grid-auto-flow-dense mt-16">
+          {/* Bio Card: Uses MotionCard, xl:col-span-full, p-6, max-w-[60ch] for text */}
+          <MotionCard
+            className="bg-cyber-bg/70 backdrop-blur-[2px] p-6 rounded-lg border border-transparent shadow-neonGlow shadow-cyber-secondary/80 xl:col-span-full flex flex-col"
+            // No explicit delay here, or set to a base like 0.1 if preferred as first item
+            transition={{duration: 0.4, delay: cardAnimationBaseDelay}}
+          >
+            {/* Added max-w-[60ch] and mx-auto for readability */}
+            <div className="space-y-5 text-cyber-text leading-relaxed prose prose-invert prose-sm sm:prose-base max-w-[60ch] mx-auto font-mono flex-grow pt-6 sm:pt-0">
               {bio.split('\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
-          </div>
+          </MotionCard>
 
-          {/* Right Column: Skills Matrix */}
-          <div className="md:col-span-2">
-            <h3 className="font-orbitron text-2xl text-cyber-accent mb-6">// Skillset Analysis</h3>
-            <div className="space-y-3 md:space-y-4">
-              {skillsData.map((skill, index) => (
-                <div 
-                  key={skill.name} 
-                  className={`bg-cyber-bg p-3 rounded-md shadow-md border border-cyber-accent/20 hover:border-cyber-accent/50 transition-all duration-300 group ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-                  style={{ animationDelay: isVisible ? `${index * 100 + 200}ms` : undefined, animationFillMode: 'forwards' }}
-                >
-                  <div className="flex justify-between items-center mb-1.5">
-                    <h4 className="font-semibold text-cyber-text text-xs sm:text-sm group-hover:text-cyber-accent transition-colors duration-300">{skill.name}</h4>
-                  </div>
-                  <div className="w-full bg-cyber-text-dim/10 rounded-full h-2">
-                    <div 
-                      className="bg-gradient-to-r from-cyber-secondary to-cyber-accent h-2 rounded-full shadow-md shadow-cyber-accent/30 group-hover:shadow-cyber-accent/50 transition-all duration-500 ease-out"
-                      style={{ width: isVisible ? `${skill.level}%` : '0%' }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Skill Cards */}
+          {skillCategoriesOrder.map((categoryName, index) => {
+            const skills = categorizedSkills[categoryName] || [];
+            if (skills.length === 0) return null;
+            
+            // Increment delay for subsequent cards
+            const currentCardDelay = cardAnimationBaseDelay + (index + 1) * 0.07; 
+            
+            const styleChoice = accentStyles[index % accentStyles.length]; // Cycle through accent styles
+
+            return (
+              <SkillCard 
+                key={categoryName}
+                title={categoryName}
+                skills={skills}
+                animationDelay={currentCardDelay} // Pass calculated delay to SkillCard, which passes to its MotionCard
+                glowColorClass={styleChoice.glowColor}
+                titleGlowEffectClass={styleChoice.titleGlow}
+                borderColorClass={styleChoice.neonBorderColor} // For the SkillCard's neonGlow shadow color
+              />
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

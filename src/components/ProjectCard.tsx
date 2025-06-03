@@ -1,73 +1,85 @@
+"use client";
 import React from 'react';
-import Image from 'next/image'; // For optimized images, if we use actual images
-import { FaGithub } from 'react-icons/fa'; // Example icon
-import type { Project } from '@/data/projectsData'; // Import the Project type
+import Image from 'next/image';
+import { FaGithub } from 'react-icons/fa';
+import MotionCard from './cards/MotionCard'; // Assuming MotionCard is in a 'cards' subdirectory
+import type { Project } from '@/data/projectsData';
 
 interface ProjectCardProps {
   project: Project;
+  animationDelay?: number;
+  borderColorClass?: string; // For the neonGlow shadow color, e.g., shadow-cyber-primary
+  titleGlowClass?: string;   // For the text-glow effect on the title, e.g., text-glow-secondary
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  animationDelay = 0,
+  borderColorClass = 'shadow-cyber-primary',
+  titleGlowClass = 'text-glow-secondary',
+}) => {
   return (
-    <div className="bg-cyber-bg rounded-lg shadow-lg overflow-hidden border border-cyber-secondary/40 hover:border-cyber-secondary/80 transition-all duration-300 group h-full flex flex-col">
-      {/* Placeholder for image - you can use Next/Image if you have actual images in public folder */}
-      {project.imagePlaceholder && (
-        <div className="w-full h-48 bg-cyber-surface relative overflow-hidden">
-          {/* Basic placeholder styling - replace with actual Image component or better placeholder */}
-          <div className="absolute inset-0 bg-gradient-to-t from-cyber-bg via-cyber-bg/50 to-transparent"></div>
-          <p className="absolute inset-0 flex items-center justify-center text-cyber-accent font-orbitron text-lg">
-            [ {project.title.toUpperCase()}_DATASTREAM ]
-          </p>
-          {/* Example of using Next/Image if you had an image in public/placeholders/project-name.png 
-          <Image 
-            src={project.imagePlaceholder} 
-            alt={`${project.title} placeholder`} 
-            layout="fill" 
-            objectFit="cover" 
-            className="opacity-30 group-hover:opacity-50 transition-opacity duration-300"
-          />
-          */}
-        </div>
-      )}
-
-      <div className="p-6 flex-grow flex flex-col">
-        <h3 className="font-orbitron text-xl md:text-2xl text-cyber-secondary mb-3 group-hover:text-pink-400 transition-colors duration-300">
-          {project.title}
-        </h3>
-        
-        <ul className="list-disc list-inside space-y-1.5 text-cyber-text-dim text-xs sm:text-sm mb-4 flex-grow">
-          {project.description.map((point, index) => (
-            <li key={index} className="leading-relaxed">{point}</li>
-          ))}
-        </ul>
-
-        <div className="mb-4">
-          <h4 className="font-orbitron text-sm text-cyber-accent mb-2">// Tech Stack_</h4>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span 
-                key={tech} 
-                className="px-2.5 py-1 bg-cyber-accent/10 text-cyber-accent text-xs rounded-full border border-cyber-accent/30 hover:bg-cyber-accent/20 transition-colors duration-200"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {project.githubLink && (
-          <a 
-            href={project.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-auto inline-flex items-center justify-center px-4 py-2 bg-cyber-secondary/80 hover:bg-cyber-secondary text-cyber-bg font-orbitron text-sm rounded-md transition-all duration-300 transform hover:scale-105 group-hover:shadow-lg group-hover:shadow-cyber-secondary/30 focus:outline-none focus:ring-2 focus:ring-cyber-secondary focus:ring-opacity-75"
-          >
-            <FaGithub className="mr-2" />
-            View on GitHub
-          </a>
-        )}
+    <MotionCard
+      className={`bg-cyber-bg/70 backdrop-blur-[2px] p-6 rounded-lg border border-transparent shadow-neonGlow ${borderColorClass} flex flex-col h-full group`}
+      transition={{ duration: 0.4, delay: animationDelay }}
+    >
+      {/* Image */}
+      <div className="w-full h-48 relative rounded-md mb-4 border-2 border-cyber-surface overflow-hidden group-hover:border-cyber-accent transition-colors duration-300">
+        <Image 
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        {/* Optional: Overlay on image hover if desired */}
+        {/* <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-300"></div> */}
       </div>
-    </div>
+
+      {/* Datastream ID Removed */}
+      {/* <p className="font-mono text-xs text-cyber-accent mb-2 tracking-wider">
+        [ {project.datastreamId} ]
+      </p> */}
+
+      {/* Title */}
+      <h3 className={`font-orbitron text-2xl text-cyber-text mb-4 ${titleGlowClass} group-hover:text-white transition-colors duration-300`}>
+        {project.title}
+      </h3>
+      
+      {/* Description */}
+      <ul className="list-disc list-inside space-y-1.5 text-cyber-text-dim text-sm leading-relaxed mb-5 flex-grow">
+        {project.description.map((point, index) => (
+          <li key={index}>{point}</li>
+        ))}
+      </ul>
+
+      {/* Tech Stack */}
+      <div className="mb-6">
+        <h4 className="font-orbitron text-sm text-cyber-text-dim mb-3 tracking-wide">Tech Stack</h4>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span 
+              key={tech} 
+              className="bg-cyber-surface text-cyber-text-dim px-3 py-1.5 rounded text-xs font-mono hover:bg-cyber-accent hover:text-cyber-bg transition-colors duration-200 cursor-default"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* GitHub Button */}
+      {project.githubLink && (
+        <a 
+          href={project.githubLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`mt-auto bg-cyber-primary text-cyber-bg font-orbitron py-3 px-4 rounded w-full flex items-center justify-center transition-all duration-300 shadow-neonGlow shadow-cyber-primary hover:bg-opacity-80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyber-bg focus:ring-cyber-primary`}
+        >
+          <span className="mr-2.5"><FaGithub /></span>
+          View on GitHub
+        </a>
+      )}
+    </MotionCard>
   );
 };
 

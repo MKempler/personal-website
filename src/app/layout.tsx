@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from "next";
 import { Orbitron, Share_Tech_Mono } from "next/font/google"; // Import new fonts
 import "./globals.css";
+import ReCaptchaProviderWrapper from '@/components/ReCaptchaProviderWrapper'; // Import the wrapper
 
 // Configure Orbitron for headings (we'll apply this via a className)
 const orbitron = Orbitron({
@@ -30,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body 
-        className={`${shareTechMono.variable} ${orbitron.variable} font-mono bg-slate-900 text-slate-200`}
+        className={`${shareTechMono.variable} ${orbitron.variable} font-mono bg-cyber-bg text-cyber-text`}
       > {/* Applied dark theme base classes */}
         {/* Apply Share Tech Mono as the base monospace font family via Tailwind's font-mono utility */}
         {/* Orbitron can be applied using className="font-orbitron" where needed */}
-        {children}
+        <ReCaptchaProviderWrapper>
+          {children}
+        </ReCaptchaProviderWrapper>
       </body>
     </html>
   );

@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
+"use client";
+
+import React, { useState, useRef, useCallback } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -15,34 +18,51 @@ const ContactSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isVisible = useIntersectionObserver(sectionRef, { threshold: 0.1, triggerOnce: true });
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!executeRecaptcha) {
+      console.error("Execute reCAPTCHA not yet available");
+      setStatusMessage("reCAPTCHA not ready. Please try again in a moment.");
+      return;
+    }
+
     setIsLoading(true);
     setStatusMessage(null);
-    
-    // Simulate API call delay
-    // In a real scenario, this would be an fetch/axios call to your backend
-    console.log("Form data submitted:", formData);
-    // Example: const response = await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
 
-    setTimeout(() => { // Simulating network response
-      // Replace with actual success/error logic based on API response
-      const success = Math.random() > 0.3; // Simulate success/failure
+    try {
+      const token = await executeRecaptcha('contactFormSubmit');
 
-      if (success) {
-        setStatusMessage('Transmission successful. Standby for response.');
-        setFormData({ name: '', email: '', message: '' }); // Clear form
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, recaptchaToken: token }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setStatusMessage(result.message || 'Message sent successfully! I\'ll get back to you soon.');
+        setFormData({ name: '', email: '', message: '' });
       } else {
-        setStatusMessage('Error: Signal lost. Please re-initiate contact protocol.');
+        setStatusMessage(result.message || 'Error sending message. Please try again.');
       }
-      setIsLoading(false);
-    }, 1500);
-  };
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatusMessage('Error: Could not send message due to a network issue. Please try again later.');
+    }
+
+    setIsLoading(false);
+  }, [executeRecaptcha, formData]);
 
   const socialLinks = [
     {
@@ -74,16 +94,16 @@ const ContactSection = () => {
     >
       <div className="container mx-auto px-4 md:px-8">
         <h2 className="font-orbitron text-4xl md:text-5xl text-center text-cyber-accent mb-12 md:mb-16 tracking-wider">
-          [ Sector: Contact ] // Establish Comms Link
+          Contact Me
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           {/* Left Column: Contact Form */}
           <div className="bg-cyber-surface p-6 sm:p-8 rounded-lg shadow-xl shadow-cyber-accent/10 border border-cyber-accent/30">
-            <h3 className="font-orbitron text-2xl text-cyber-accent mb-6">// Initiate Transmission_</h3>
+            <h3 className="font-orbitron text-2xl text-cyber-accent mb-6">Send a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Callsign [Name]</label>
+                <label htmlFor="name" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Name</label>
                 <input 
                   type="text" 
                   name="name" 
@@ -92,11 +112,11 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required 
                   className="w-full px-4 py-2.5 bg-cyber-bg border border-cyber-text-dim/30 rounded-md text-cyber-text focus:ring-2 focus:ring-cyber-accent focus:border-cyber-accent outline-none transition-all duration-300 placeholder-cyber-text-dim/50 shadow-sm"
-                  placeholder="Unit ID / Alias"
+                  placeholder="Your Name"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Frequency [Email]</label>
+                <label htmlFor="email" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Email</label>
                 <input 
                   type="email" 
                   name="email" 
@@ -105,11 +125,11 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required 
                   className="w-full px-4 py-2.5 bg-cyber-bg border border-cyber-text-dim/30 rounded-md text-cyber-text focus:ring-2 focus:ring-cyber-accent focus:border-cyber-accent outline-none transition-all duration-300 placeholder-cyber-text-dim/50 shadow-sm"
-                  placeholder="Secure Channel Address"
+                  placeholder="Your Email Address"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Datastream [Message]</label>
+                <label htmlFor="message" className="block text-sm font-orbitron text-cyber-text-dim mb-1.5">Message</label>
                 <textarea 
                   name="message" 
                   id="message" 
@@ -118,7 +138,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2.5 bg-cyber-bg border border-cyber-text-dim/30 rounded-md text-cyber-text focus:ring-2 focus:ring-cyber-accent focus:border-cyber-accent outline-none transition-all duration-300 placeholder-cyber-text-dim/50 shadow-sm resize-none"
-                  placeholder="Encoded Message..."
+                  placeholder="Your Message..."
                 ></textarea>
               </div>
               <button 
@@ -132,12 +152,12 @@ const ContactSection = () => {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Transmitting...
+                    Sending...
                   </>
                 ) : (
                   <>
                     <FiSend className="mr-2" />
-                    Transmit Signal
+                    Send Message
                   </>
                 )}
               </button>
@@ -152,7 +172,7 @@ const ContactSection = () => {
           {/* Right Column: Social Links & Direct Contact Info */}
           <div className="space-y-8 mt-8 md:mt-0">
             <div>
-              <h3 className="font-orbitron text-2xl text-cyber-primary mb-6">// Direct Uplinks_</h3>
+              <h3 className="font-orbitron text-2xl text-cyber-primary mb-6">Connect With Me</h3>
               <div className="space-y-4">
                 {socialLinks.map((link, index) => (
                   <a 

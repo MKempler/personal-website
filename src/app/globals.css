@@ -29,4 +29,60 @@ body {
 @keyframes subtleButtonPulse {
   0%, 100% { box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.3); } /* cyber-primary glow */
   50% { box-shadow: 0 0 25px 8px rgba(0, 255, 255, 0.5); }
+}
+
+/* Cyberpunk Glow Effects */
+.text-glow-primary {
+  text-shadow:
+    0 0 5px #00FFFF,
+    0 0 10px #00FFFF,
+    0 0 20px #00FFFF,
+    0 0 40px #00FFFF,
+    0 0 80px #00FFFF;
+}
+
+.text-glow-secondary {
+  text-shadow:
+    0 0 5px #FF00FF,
+    0 0 10px #FF00FF,
+    0 0 20px #FF00FF,
+    0 0 40px #FF00FF,
+    0 0 80px #FF00FF;
+}
+
+.text-glow-accent {
+  text-shadow:
+    0 0 5px #FFFF00,
+    0 0 10px #FFFF00,
+    0 0 20px #FFFF00,
+    0 0 40px #FFFF00,
+    0 0 80px #FFFF00;
+}
+
+.box-glow-primary {
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4);
+}
+
+.box-glow-secondary {
+  box-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(255, 0, 255, 0.4);
+}
+
+.box-glow-accent {
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.8), 0 0 15px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4);
+}
+
+/* For applying glow to borders (often used with transparent backgrounds or on elements with actual borders) */
+.border-glow-primary {
+  border-color: #00FFFF;
+  box-shadow: 0 0 3px #00FFFF, 0 0 5px #00FFFF inset; /* Subtle inner and outer glow on the border itself */
+}
+
+.border-glow-secondary {
+  border-color: #FF00FF;
+  box-shadow: 0 0 3px #FF00FF, 0 0 5px #FF00FF inset;
+}
+
+.border-glow-accent {
+  border-color: #FFFF00;
+  box-shadow: 0 0 3px #FFFF00, 0 0 5px #FFFF00 inset;
 } 

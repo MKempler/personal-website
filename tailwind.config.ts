@@ -28,6 +28,9 @@ const config: Config = {
         'cyber-text-dim': '#7F8C9A',  // Dimmed text
         'cyber-text': '#D0D6DB',      // Main text
       },
+      boxShadow: {
+        'neonGlow': '0 0 0 1px var(--tw-shadow-color) inset, 0 0 18px var(--tw-shadow-color)',
+      },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'subtle-pulse': 'subtlePulse 2.5s infinite ease-in-out',
