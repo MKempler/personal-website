@@ -89,7 +89,7 @@ const ContactSection = () => {
     <section 
       id="contact" 
       ref={sectionRef}
-      className={`w-full py-16 md:py-24 bg-cyber-bg transition-all duration-1000 ease-out 
+      className={`w-full py-4 md:py-8 bg-cyber-bg transition-all duration-1000 ease-out scroll-mt-20
                   ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
     >
       <div className="container mx-auto px-4 md:px-8">
